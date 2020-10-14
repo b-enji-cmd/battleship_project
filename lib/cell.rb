@@ -20,8 +20,7 @@ class Cell
   def fired_upon?
      @taken_fire
   end
-
   def fire_upon
-    @taken_fire = true 
+    @taken_fire = true
   end
 end
