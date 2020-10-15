@@ -28,4 +28,38 @@ class CellTest < Minitest::Test
     @cell.fire_upon
     assert_equal true, @cell.fired_upon?
   end
+
+  def test_if_cell_can_render
+    cell_1 = Cell.new("B4")
+    assert_equal ".", cell_1.render
+    end
+
+    def test_it_can_render_S
+      cell_2 = Cell.new("C3")
+      cell_2.place_ship(@cruiser)
+       #binding.pry
+      assert_equal "S",cell_2.render(true)
+    end
+
+    def test_it_can_hit_and_miss
+
+      cell_2 = Cell.new("C3")
+      cell_2.fire_upon
+      assert_equal "M", cell_2.render
+      cell_2.place_ship(@cruiser)
+      cell_2.fire_upon
+      assert_equal "H",cell_2.render
+    end
+
+    def test_ship_sinks
+      cell_2 = Cell.new("C3")
+      cell_2.place_ship(@cruiser)
+      cell_2.fire_upon
+      @cruiser.hit
+      @cruiser.hit
+      #binding.pry
+      @cruiser.hit
+      #binding.pry
+      assert_equal "X", cell_2.render
+    end
 end
