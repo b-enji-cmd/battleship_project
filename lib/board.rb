@@ -1,3 +1,4 @@
+require './lib/cell'
 class Board
   attr_reader:cells
   def initialize
@@ -13,7 +14,7 @@ class Board
     end
   end
   def valid_coordinate?(coord)
-     @cells.include?(coord) 
+     @cells.include?(coord)
   end
 
   def valid_length?(ship_object, given_coordinate_arr)
@@ -24,17 +25,17 @@ class Board
     only_numbers = given_coordinate_arr.map do |coord|
           coord.chars
     end
-    
+
     valid_numbers = only_numbers.map do |nested_arr|
         nested_arr[1].to_i
     end
-    
+
     if valid_numbers.uniq.count == 1
         return true
     else
-    
+
       valid_numbers.each_cons(2).all? {|a , b| b == a+1}
-    
+
     end
 
   end
@@ -62,11 +63,19 @@ class Board
   def valid_consecutive?(ship_object, given_coordinate_arr)
     valid_consecutive_numbers?(ship_object, given_coordinate_arr) && valid_consecutive_letters?(ship_object, given_coordinate_arr)
   end
+  def overlap?(given_coordinate_arr)
 
+      #given_coordinate_arr.any? {|coordinate| @cells[coordinate].ship == nil}
+        given_coordinate_arr.map do |coord|
+          @cells.fetch(coord).ship == nil 
+        end[0]
+
+  end
   def valid_placement?(ship_object, given_coordinate_arr)
     valid_length?(ship_object, given_coordinate_arr) &&
     valid_consecutive?(ship_object, given_coordinate_arr)&&
-    !valid_diagonal?(ship_object, given_coordinate_arr)
+    !valid_diagonal?(ship_object, given_coordinate_arr) &&
+    overlap?(given_coordinate_arr)
 
   end
 
@@ -81,4 +90,10 @@ class Board
     (arg_letter.uniq.count> 1 ) && (arg_num.uniq.count> 1 )
   end
 
+  def place(ship, coordinates)
+     coordinates.each do |coordinate|
+
+      @cells[coordinate].place_ship(ship)
+    end
+  end
 end
