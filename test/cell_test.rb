@@ -62,4 +62,7 @@ class CellTest < Minitest::Test
       #binding.pry
       assert_equal "X", cell_2.render
     end
+    
+
+   
 end
