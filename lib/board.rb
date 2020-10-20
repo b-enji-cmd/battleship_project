@@ -67,7 +67,7 @@ class Board
 
       #given_coordinate_arr.any? {|coordinate| @cells[coordinate].ship == nil}
         given_coordinate_arr.map do |coord|
-          @cells.fetch(coord).ship == nil 
+          @cells.fetch(coord).ship == nil
         end[0]
 
   end
@@ -99,9 +99,9 @@ class Board
   def render(show_ship = false)
       "  1 2 3 4 \n" +
       "A #{@cells["A1"].render(show_ship)} #{@cells["A2"].render(show_ship)} #{@cells["A3"].render(show_ship)} #{@cells["A4"].render(show_ship)} \n" +
-      "B #{@cells["B1"].render(show_ship)} #{@cells["B2"].render(show_ship)} #{@cells["B3"].render(show_ship)} #{@cells["B4"].render(show_ship)}\n" +
+      "B #{@cells["B1"].render(show_ship)} #{@cells["B2"].render(show_ship)} #{@cells["B3"].render(show_ship)} #{@cells["B4"].render(show_ship)} \n" +
       "C #{@cells["C1"].render(show_ship)} #{@cells["C2"].render(show_ship)} #{@cells["C3"].render(show_ship)} #{@cells["C4"].render(show_ship)} \n" +
       "D #{@cells["D1"].render(show_ship)} #{@cells["D2"].render(show_ship)} #{@cells["D3"].render(show_ship)} #{@cells["D4"].render(show_ship)} \n"
-    
+
   end
 end
