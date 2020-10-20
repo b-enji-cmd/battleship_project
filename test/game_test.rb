@@ -15,6 +15,7 @@ class GameTest < Minitest::Test
 
   end
   def test_it_can_start_game
-  @game.welcome 
+    @game.start
+    binding.pry
   end
 end
