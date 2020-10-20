@@ -77,6 +77,11 @@ Enter p to play. Enter q to quit."
   end
 
   def player_shoot
-     
-  end
+    puts "Enter the coordinate for your shot"
+     target_coordinate = gets.chomp.to_s.upcase
+     until @player_board.valid_coordinate?(target_coordinate)
+       "Invalid coordinate. Enter the coordinate for your shot."
+       target_coordinate = gets.chomp.to_s.upcase
+       end
+    end
 end#of class
