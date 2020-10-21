@@ -28,19 +28,15 @@ Enter p to play. Enter q to quit."
   end
 
   def cpu_random_coordinate
-
     random_letters =["A", "B", "C", "D"].shuffle
     random_coordinate = (random_letters[rand(0..3)]) + (rand(1..4).to_s)
-
   end
 
   def game_over?(board)
-    #require'pry';binding.pry
+  #require'pry';binding.pry
      board.cells.all? do |cell|
-      # require'pry';binding.pry
        cell[1].ship.sunk? unless cell[1].ship == nil
      end
-
   end
 
 
@@ -49,19 +45,23 @@ Enter p to play. Enter q to quit."
 
     @player_board.populate_board
     @cpu_board.populate_board
-    cruiser_coordinates = ["#{cpu_random_coordinate}" ,"#{cpu_random_coordinate}","#{cpu_random_coordinate}" ]
 
-    until @cpu_board.valid_placement?(@cruiser, cruiser_coordinates) && cruiser_coordinates.uniq.count != 1
-        cruiser_coordinates = ["#{cpu_random_coordinate}" ,"#{cpu_random_coordinate}","#{cpu_random_coordinate}" ]
+  
+
+    cruiser_coordinates = @cpu_board.cells.keys.sample(3)
+    until @cpu_board.valid_placement?(@cruiser, cruiser_coordinates)
+        cruiser_coordinates = @cpu_board.cells.keys.sample(3)
     end
      @cpu_board.place(@cruiser, cruiser_coordinates)
 
 
-     submarine_coordinates = ["#{cpu_random_coordinate}" ,"#{cpu_random_coordinate}"]
-     until @cpu_board.valid_placement?(@submarine, submarine_coordinates) && submarine_coordinates.uniq.count != 1
-         submarine_coordinates = ["#{cpu_random_coordinate}" ,"#{cpu_random_coordinate}"]
+     submarine_coordinates = @cpu_board.cells.keys.sample(2)
+     until @cpu_board.valid_placement?(@submarine, submarine_coordinates)
+         submarine_coordinates = @cpu_board.cells.keys.sample(2)
      end
       @cpu_board.place(@submarine, submarine_coordinates)
+
+
       user_setup
   end
   def user_setup
@@ -82,26 +82,21 @@ Enter p to play. Enter q to quit."
        player_submarine_coordinates = gets.chomp.to_s.upcase.split(" ")
      end
      @player_board.place(@submarine,player_submarine_coordinates)
-     puts "-----------------\nPLAYER BOARD\n---------------------"
-     puts @player_board.render(true)
-     puts "-----------------\nCPU BOARD\n---------------"
-     puts @cpu_board.render
      player_shoot
   end
 
   def player_shoot
+    puts "-----------------\nPLAYER BOARD\n---------------------"
+    puts @player_board.render(true)
+    puts "-----------------\nCPU BOARD\n---------------\n"
+    puts @cpu_board.render(true)
+
     puts "Enter the coordinate for your shot"
      target_coordinate = gets.chomp.to_s.upcase
      until @player_board.valid_coordinate?(target_coordinate) && !@cpu_board.cells[target_coordinate].taken_fire
       puts "Invalid coordinate. Enter the coordinate for your shot."
        target_coordinate = gets.chomp.to_s.upcase
      end
-
-       puts "-----------------\nPLAYER BOARD\n---------------------"
-       puts @player_board.render(true)
-       puts "-----------------\nCPU BOARD\n---------------"
-       puts @cpu_board.render
-       
        if @cpu_board.cells[target_coordinate].empty?
          puts "Your shot on #{target_coordinate} was a miss."
        else
@@ -110,7 +105,6 @@ Enter p to play. Enter q to quit."
          puts "Your shot on #{target_coordinate} was a hit."
          #require'pry';binding.pry
        end
-
 
        puts @cpu_board.cells
        if game_over?(@player_board)
@@ -122,6 +116,11 @@ Enter p to play. Enter q to quit."
     end
 
     def computer_shot
+      puts "-----------------\nPLAYER BOARD\n---------------------"
+      puts @player_board.render(true)
+      puts "-----------------\nCPU BOARD\n---------------"
+      puts @cpu_board.render
+
        cpu_target_coordinate = cpu_random_coordinate
 
        if !@player_board.cells[cpu_target_coordinate].fire_upon
@@ -134,10 +133,7 @@ Enter p to play. Enter q to quit."
          @player_board.cells[cpu_target_coordinate].ship.hit
          puts "My shot on #{cpu_target_coordinate} was a hit."
          #require'pry';binding.pry
-           puts "-----------------\nPLAYER BOARD\n---------------------"
-         puts @player_board.render(true)
-        puts "-----------------\nCPU BOARD\n---------------"
-         puts @cpu_board.render
+
        end
        if game_over?(@cpu_board)
          puts "You lost"

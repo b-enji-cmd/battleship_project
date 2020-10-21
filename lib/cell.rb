@@ -8,10 +8,7 @@ class Cell
   end
 
   def empty?
-    if @ship == nil
-      true
-    else false
-    end
+    @ship == nil
   end
 
   def place_ship(placed_ship)
@@ -25,23 +22,36 @@ class Cell
     @taken_fire = true
   end
 
-  def render(show_ship = false)
+  def render(show_ship = nil)
+      if !fired_upon?
+        if show_ship == true && !empty?
+            "S"
+        else
+            "."
+        end#of inner if
+      elsif empty?
+        "M"
+      elsif !empty? && !@ship.sunk?
+        "H"
+      else
+        "X"
+      end
+    end
 
-    if show_ship == true && empty? == false
-      "S"
-    elsif fired_upon? == true && empty? == true
-      "M"
-    elsif fired_upon? == true && @ship.sunk? == true
-      "X"
-    else show_ship == false && empty? == false
-      render_logic
-    end
-  end
-  def render_logic
-    if fired_upon? == true && empty? == false
-      "H"
-    else fired_upon? == false
-      "."
-    end
-  end
+# . < M || S < H < X
 end
+
+  # def render_logic
+  #   .
+  #  !show_ship &&fired upon && empty?
+  #       s
+  #   fired upon && empty?
+  #
+  #  m
+  #        fired_upon && !sunk
+  #           h
+  #               sunk
+  #                      x
+
+
+  #   end
