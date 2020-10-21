@@ -39,7 +39,6 @@ class Cell
   end
   def render_logic
     if fired_upon? == true && empty? == false
-      ship.hit
       "H"
     else fired_upon? == false
       "."
