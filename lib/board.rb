@@ -30,24 +30,22 @@ class Board
         nested_arr[1].to_i
     end
 
-    if valid_numbers.uniq.count == 1
-        return true
-    else
-
+      if valid_numbers.uniq.count == 1
+          return true
+        else
       valid_numbers.each_cons(2).all? {|a , b| b == a+1}
-
-    end
-
+      end
   end
 
   def valid_consecutive_letters?(ship_object, given_coordinate_arr)
     arg_letters =  given_coordinate_arr.map do |coord|
          coord.chars
     end
-    arg_letters
+
     valid_letters = arg_letters.map do |nested|
       nested[0]
     end
+
     if valid_letters.uniq.count == 1
       return true
     else
@@ -63,6 +61,7 @@ class Board
   def valid_consecutive?(ship_object, given_coordinate_arr)
     valid_consecutive_numbers?(ship_object, given_coordinate_arr) && valid_consecutive_letters?(ship_object, given_coordinate_arr)
   end
+  
   def overlap?(given_coordinate_arr)
 
       #given_coordinate_arr.any? {|coordinate| @cells[coordinate].ship == nil}
@@ -96,7 +95,7 @@ class Board
     end
   end
 
-  def render(show_ship = false)
+  def render(show_ship = nil)
       "  1 2 3 4 \n" +
       "A #{@cells["A1"].render(show_ship)} #{@cells["A2"].render(show_ship)} #{@cells["A3"].render(show_ship)} #{@cells["A4"].render(show_ship)} \n" +
       "B #{@cells["B1"].render(show_ship)} #{@cells["B2"].render(show_ship)} #{@cells["B3"].render(show_ship)} #{@cells["B4"].render(show_ship)} \n" +

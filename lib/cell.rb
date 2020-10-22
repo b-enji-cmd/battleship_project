@@ -23,35 +23,18 @@ class Cell
   end
 
   def render(show_ship = nil)
-      if !fired_upon?
-        if show_ship == true && !empty?
-            "S"
-        else
-            "."
-        end#of inner if
-      elsif empty?
-        "M"
-      elsif !empty? && !@ship.sunk?
-        "H"
+    if !fired_upon?
+      if show_ship == true && !empty?
+          "S"
       else
-        "X"
+          "."
       end
+    elsif empty?
+        "M"
+    elsif !empty? && !@ship.sunk?
+        "H"
+    else
+        "X"
     end
-
-# . < M || S < H < X
+  end
 end
-
-  # def render_logic
-  #   .
-  #  !show_ship &&fired upon && empty?
-  #       s
-  #   fired upon && empty?
-  #
-  #  m
-  #        fired_upon && !sunk
-  #           h
-  #               sunk
-  #                      x
-
-
-  #   end
