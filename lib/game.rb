@@ -46,7 +46,7 @@ Enter p to play. Enter q to quit."
     @player_board.populate_board
     @cpu_board.populate_board
 
-  
+
 
     cruiser_coordinates = @cpu_board.cells.keys.sample(3)
     until @cpu_board.valid_placement?(@cruiser, cruiser_coordinates)
@@ -88,7 +88,7 @@ Enter p to play. Enter q to quit."
   def player_shoot
     puts "-----------------\nPLAYER BOARD\n---------------------"
     puts @player_board.render(true)
-    puts "-----------------\nCPU BOARD\n---------------\n"
+    puts "-----------------\nCPU BOARD\n------------------\n"
     puts @cpu_board.render(true)
 
     puts "Enter the coordinate for your shot"
@@ -116,9 +116,9 @@ Enter p to play. Enter q to quit."
     end
 
     def computer_shot
-      puts "-----------------\nPLAYER BOARD\n---------------------"
+      puts "-----------------\nPLAYER BOARD\n-----------------"
       puts @player_board.render(true)
-      puts "-----------------\nCPU BOARD\n---------------"
+      puts "------------------\nCPU BOARD\n-----------------"
       puts @cpu_board.render
 
        cpu_target_coordinate = cpu_random_coordinate

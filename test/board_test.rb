@@ -32,7 +32,7 @@ class BoardTest < Minitest::Test
   end
 
   def test_it_can_validate_placement
-    @board.populate_board 
+    @board.populate_board
     assert_equal false , @board.valid_placement?(@cruiser, ["A1", "A2"])
     assert_equal false , @board.valid_placement?(@cruiser, ["A1", "A2", "A4"])
     assert_equal false , @board.valid_placement?(@cruiser, ["A1", "B2", "C3"])
